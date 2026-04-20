@@ -6,15 +6,6 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
-    build: {
-      outDir: 'dist',
-      sourcemap: false,
-      rollupOptions: {
-        output: {
-          manualChunks: undefined,
-        },
-      },
-    },
     server: {
       host: '0.0.0.0',
       port: Number(env.VITE_DEV_PORT || 5173),
