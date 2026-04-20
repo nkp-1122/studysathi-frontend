@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudySathi PYQ</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Manrope, "Segoe UI", sans-serif;
+      background: #eef4fb;
+      color: #122033;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 40px 18px;
+    }
+
+    .shell {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .heading {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      color: #173b91;
+    }
+
+    .lead {
+      margin: 0 0 24px;
+      color: #617089;
+      font-size: 1rem;
+    }
+
+    .panel,
+    .card {
+      background: #ffffff;
+      border: 1px solid #d7e4f2;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(18, 32, 51, 0.08);
+    }
+
+    .panel {
+      padding: 24px;
+      margin-bottom: 22px;
+    }
+
+    .card {
+      padding: 24px;
+    }
+
+    .muted {
+      margin: 8px 0 0;
+      color: #617089;
+    }
+
+    .year-grid {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .year-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid #d7e4f2;
+      background: #ffffff;
+      color: #122033;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .year-btn.active,
+    .year-btn:hover {
+      background: #2355d8;
+      border-color: #2355d8;
+      color: #ffffff;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid #d7e4f2;
+      color: #2355d8;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .tag.primary {
+      background: rgba(31, 94, 255, 0.12);
+    }
+
+    .title {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #122033;
+    }
+
+    .table-wrap {
+      overflow: hidden;
+      border: 1px solid #d7e4f2;
+      border-radius: 20px;
+      background: #ffffff;
+      margin-top: 20px;
+    }
+
+    .table {
+      display: grid;
+    }
+
+    .table-head,
+    .table-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.8fr);
+    }
+
+    .table-head {
+      background: #edf3ff;
+      border-bottom: 1px solid #d7e4f2;
+    }
+
+    .table-row {
+      border-bottom: 1px solid #d7e4f2;
+    }
+
+    .table-row:last-child {
+      border-bottom: 0;
+    }
+
+    .cell {
+      padding: 18px 20px;
+    }
+
+    .subject-cell {
+      border-right: 1px solid #d7e4f2;
+    }
+
+    .table-head .cell {
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .paper-title {
+      margin: 0 0 6px;
+      font-size: 1.08rem;
+      color: #122033;
+    }
+
+    .downloads {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 132px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(31, 94, 255, 0.22);
+      background: rgba(31, 94, 255, 0.14);
+      color: #173b91;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .action-link.secondary {
+      background: #ffffff;
+      border-color: #d7e4f2;
+      color: #122033;
+    }
+
+    .action-link.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .actions {
+      margin-top: 22px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      border: 1px solid #d7e4f2;
+      background: #ffffff;
+      color: #122033;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .page {
+        padding: 22px 12px;
+      }
+
+      .panel,
+      .card {
+        padding: 18px;
+        border-radius: 18px;
+      }
+
+      .table-head,
+      .table-row {
+        grid-template-columns: 1fr;
+      }
+
+      .subject-cell {
+        border-right: 0;
+        border-bottom: 1px solid #d7e4f2;
+      }
+
+      .downloads {
+        justify-content: flex-start;
+      }
+
+      .action-link,
+      .back-link,
+      .year-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="shell">
+      <h1 class="heading">Previous Year Questions</h1>
+      <p class="lead">Choose any PYQ year from 2015 to 2025. Selected year details will stay on this page.</p>
+
+      <section class="panel">
+        <h2 style="margin:0;">Select PYQ Year</h2>
+        <p class="muted">Year select karne ke baad isi page par PDF actions show honge.</p>
+        <div class="year-grid" id="yearGrid"></div>
+      </section>
+
+      <section class="card">
+        <div class="tags">
+          <span class="tag primary">PYQ</span>
+          <span class="tag" id="selectedYearTag">2025</span>
+        </div>
+        <h2 class="title" id="selectedTitle">2025 Previous Year Questions</h2>
+        <p class="muted" id="selectedDescription">Loading PDF details...</p>
+
+        <div class="table-wrap">
+          <div class="table">
+            <div class="table-head">
+              <div class="cell subject-cell">Question Paper</div>
+              <div class="cell">Downloads</div>
+            </div>
+            <div id="rowsBody">
+              <div class="table-row">
+                <div class="cell subject-cell">
+                  <h3 class="paper-title">2025 Previous Year Questions</h3>
+                </div>
+                <div class="cell downloads">
+                  <a class="action-link disabled" href="#" target="_blank" rel="noreferrer">Open Link</a>
+                  <a class="action-link secondary disabled" href="#">Download</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <a class="back-link" href="/">Back to StudySathi</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const years = Array.from({ length: 11 }, (_, index) => String(2025 - index));
+    let selectedYear = '2025';
+
+    const isUsableUrl = (value) => typeof value === 'string' && value.trim() !== '' && value.trim() !== '#';
+    const normalizeBranch = (value) => (typeof value === 'string' ? value.trim().toUpperCase() : '');
+    const queryParams = new URLSearchParams(window.location.search);
+    const selectedBranch = normalizeBranch(queryParams.get('branch'));
+    const selectedSemester = queryParams.get('semester') || '';
+
+    const elements = {
+      yearGrid: document.getElementById('yearGrid'),
+      selectedYearTag: document.getElementById('selectedYearTag'),
+      selectedTitle: document.getElementById('selectedTitle'),
+      selectedDescription: document.getElementById('selectedDescription'),
+      rowsBody: document.getElementById('rowsBody'),
+    };
+
+    const escapeHtml = (value = '') =>
+      String(value).replace(/[&<>"']/g, (char) => (
+        { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char] || char
+      ));
+
+    const getEntryTitle = (entry) =>
+      entry?.title?.trim()
+      || entry?.originalFileName?.replace(/\.[^/.]+$/, '')
+      || `${entry?.branch || 'General'} Sem ${entry?.semester || selectedSemester || '1'} PYQ ${selectedYear}`;
+
+    const getFilteredEntries = (items) => {
+      const yearEntries = Array.isArray(items)
+        ? items.filter((item) => String(item?.year || '') === selectedYear)
+        : [];
+
+      if (!yearEntries.length) {
+        return [];
+      }
+
+      const branchEntries = selectedBranch
+        ? yearEntries.filter((item) => normalizeBranch(item?.branch) === selectedBranch)
+        : yearEntries;
+
+      let filteredEntries = branchEntries.length ? branchEntries : yearEntries;
+
+      if (selectedSemester) {
+        const exactEntries = filteredEntries.filter((item) => String(item?.semester || '') === selectedSemester);
+        if (exactEntries.length) {
+          filteredEntries = exactEntries;
+        } else {
+          filteredEntries = filteredEntries.filter((item) => !String(item?.semester || '').trim());
+        }
+      }
+
+      return [...filteredEntries].sort((first, second) => {
+        const updatedTimeDiff = new Date(second?.updatedAt || second?.createdAt || 0) - new Date(first?.updatedAt || first?.createdAt || 0);
+        if (updatedTimeDiff !== 0) return updatedTimeDiff;
+
+        return getEntryTitle(first).localeCompare(getEntryTitle(second));
+      });
+    };
+
+    const renderRows = (entries) => {
+      if (!elements.rowsBody) return;
+
+      if (!entries.length) {
+        elements.rowsBody.innerHTML = `
+          <div class="table-row">
+            <div class="cell subject-cell">
+              <h3 class="paper-title">${escapeHtml(`${selectedYear} Previous Year Questions`)}</h3>
+            </div>
+            <div class="cell downloads">
+              <a class="action-link disabled" href="#" target="_blank" rel="noreferrer">Open Link</a>
+              <a class="action-link secondary disabled" href="#">Download</a>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      elements.rowsBody.innerHTML = entries.map((entry) => {
+        const title = getEntryTitle(entry);
+        const href = isUsableUrl(entry?.url) ? entry.url : '#';
+        const disabledClass = isUsableUrl(entry?.url) ? '' : ' disabled';
+        const downloadAttribute = isUsableUrl(entry?.url)
+          ? ` download="${escapeHtml(entry?.originalFileName || `${title}.pdf`)}"`
+          : '';
+
+        return `
+          <div class="table-row">
+            <div class="cell subject-cell">
+              <h3 class="paper-title">${escapeHtml(title)}</h3>
+            </div>
+            <div class="cell downloads">
+              <a class="action-link${disabledClass}" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">Open Link</a>
+              <a class="action-link secondary${disabledClass}" href="${escapeHtml(href)}"${downloadAttribute}>Download</a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    };
+
+    const renderYearButtons = () => {
+      elements.yearGrid.innerHTML = years.map((year) => `
+        <button class="year-btn ${selectedYear === year ? 'active' : ''}" data-year="${year}" type="button">${year}</button>
+      `).join('');
+
+      elements.yearGrid.querySelectorAll('[data-year]').forEach((button) => {
+        button.addEventListener('click', () => {
+          selectedYear = button.getAttribute('data-year') || '2025';
+          renderYearButtons();
+          renderSelectedYear();
+        });
+      });
+    };
+
+    const applyFallback = (message) => {
+      elements.selectedYearTag.textContent = selectedYear;
+      elements.selectedTitle.textContent = `${selectedYear} Previous Year Questions`;
+      elements.selectedDescription.textContent = message;
+      renderRows([]);
+    };
+
+    const renderSelectedYear = async () => {
+      try {
+        const response = await fetch('/api/pyqs');
+        const data = await response.json();
+        const entries = getFilteredEntries(data);
+
+        if (!entries.length) {
+          applyFallback(
+            selectedBranch && selectedSemester
+              ? 'No uploaded PYQs are available for the selected branch and semester yet.'
+              : 'No uploaded PYQs are available for this year yet.'
+          );
+          return;
+        }
+
+        elements.selectedYearTag.textContent = selectedYear;
+        elements.selectedTitle.textContent = `${selectedYear} Previous Year Questions`;
+        elements.selectedDescription.textContent = selectedBranch && selectedSemester
+          ? `${entries.length} PYQ${entries.length > 1 ? 's are' : ' is'} available for the selected branch and semester.`
+          : `${entries.length} PYQ${entries.length > 1 ? 's are' : ' is'} available for this year.`;
+        renderRows(entries);
+      } catch (error) {
+        applyFallback('Unable to load the PDF details right now.');
+      }
+    };
+
+    renderYearButtons();
+    renderSelectedYear();
+  </script>
+</body>
+</html>
